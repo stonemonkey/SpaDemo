@@ -1,0 +1,43 @@
+<template>
+    <h1>Customers</h1>
+
+    <br/>
+
+    <p if.bind="!customers"><em>Loading...</em></p>
+    
+    <form if.bind="countries" submit.trigger="addCustomer()">
+        <input type="text"
+               class="form-control" 
+               value.bind="newCustomerName" 
+               placeholder="Enter customer name ...">
+        <br/>
+        <select class="form-control" value.bind="selectedCountry">
+            <option>Select customer country ...</option>
+            <option model.bind="country" repeat.for="country of countries">${country.name}</option>
+        </select>
+        <br/>
+        <button type="submit" class="btn btn-primary" disabled.bind="!(newCustomerName && selectedCountry.id)">Add new customer</button>
+    </form>
+    
+    <br/>
+    <br/>
+
+    <table if.bind="customers" class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Country</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr repeat.for="customer of customers">
+                <td>${customer.name}</td>
+                <td>${customer.country.name}</td>
+                <td>
+                    <button click.trigger="removeCustomer(customer)" class="btn btn-xs pull-right">Remove</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</template>
